@@ -412,6 +412,11 @@ class AutoFormatMultipleLinksRule extends InsertRule {
     // Get current text.
     final entireText = document.toPlainText();
 
+    // IME updates can briefly report an index that is out of sync with the
+    // current document length (for example, after rapid replacement). Skip
+    // auto-formatting in that case and let the base insertion proceed.
+    if (index < 0 || index > entireText.length) return null;
+
     // Get word before insertion.
     final leftWordPart = entireText
         // Keep all text before insertion.

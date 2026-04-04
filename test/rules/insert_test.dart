@@ -327,6 +327,16 @@ void main() {
       }
     });
 
+    test('Out-of-range index returns null instead of throwing', () {
+      final delta = Delta()..insert('\n');
+      final document = Document.fromDelta(delta);
+
+      expect(
+        rule.apply(document, 33, data: 'https://example.com', len: 0),
+        isNull,
+      );
+    });
+
     // TODO: Write tests for the bug fix: https://github.com/singerdmx/flutter-quill/issues/1432
   });
 }
