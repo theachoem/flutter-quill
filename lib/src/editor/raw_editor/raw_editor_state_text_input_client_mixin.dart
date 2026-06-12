@@ -382,6 +382,13 @@ mixin RawEditorStateTextInputClientMixin on EditorState
     _lastKnownRemoteTextEditingValue = null;
   }
 
+  @override
+  bool onFocusReceived() {
+    // Notifies the client that the platform moved focus back to this input
+    // (needed for autofill on some browsers that blur then refocus).
+    return false;
+  }
+
   void _updateSizeAndTransform() {
     if (hasConnection) {
       // Asking for renderEditor.size here can cause errors if layout hasn't
